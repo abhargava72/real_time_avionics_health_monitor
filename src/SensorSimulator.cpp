@@ -1,52 +1,52 @@
 #include "SensorSimulator.hpp"
 
 SensorSimulator::SensorSimulator()
-    : temperature_(70.0), vibration_(1.0), voltage_(28.0),
-      temperatureFault_(false), vibrationFault_(false), voltageFault_(false),
-      temperatureNoise_(0.0, 0.5), vibrationNoise_(0.0, 0.1),
-      voltageNoise_(0.0, 0.2), timestamp_(0) {}
+    : m_temperature(70.0), m_vibration(1.0), m_voltage(28.0),
+      m_temperatureFault(false), m_vibrationFault(false), m_voltageFault(false),
+      m_temperatureNoise(0.0, 0.5), m_vibrationNoise(0.0, 0.1),
+      m_voltageNoise(0.0, 0.2), m_timestamp(0) {}
 
 SensorData SensorSimulator::generateData() {
   // Advance simulated time
-  timestamp_ += 100;
+  m_timestamp += 100;
 
   // Simulate fault behavior
-  if (temperatureFault_) {
-    temperature_ += 0.4;
+  if (m_temperatureFault) {
+    m_temperature += 0.4;
   }
 
-  if (vibrationFault_) {
-    vibration_ += 0.08;
+  if (m_vibrationFault) {
+    m_vibration += 0.08;
   }
 
-  if (voltageFault_) {
-    voltage_ -= 0.05;
+  if (m_voltageFault) {
+    m_voltage -= 0.05;
   }
 
   SensorData data;
 
-  data.temperature = temperature_ + temperatureNoise_(generator_);
-  data.vibration = vibration_ + vibrationNoise_(generator_);
-  data.voltage = voltage_ + voltageNoise_(generator_);
-  data.timestamp = timestamp_;
+  data.temperature = m_temperature + m_temperatureNoise(generator_);
+  data.vibration = m_vibration + m_vibrationNoise(generator_);
+  data.voltage = m_voltage + m_voltageNoise(generator_);
+  data.timestamp = m_timestamp;
 
   return data;
 }
 
-void SensorSimulator::injectTemperatureFault() { temperatureFault_ = true; }
+void SensorSimulator::injectTemperatureFault() { m_temperatureFault = true; }
 
-void SensorSimulator::injectVoltageFault() { voltageFault_ = true; }
+void SensorSimulator::injectVoltageFault() { m_voltageFault = true; }
 
-void SensorSimulator::injectVibrationFault() { vibrationFault_ = true; }
+void SensorSimulator::injectVibrationFault() { m_vibrationFault = true; }
 
 void SensorSimulator::reset() {
-  temperature_ = 70.0;
-  vibration_ = 1.0;
-  voltage_ = 28.0;
+  m_temperature = 70.0;
+  m_vibration = 1.0;
+  m_voltage = 28.0;
 
-  temperatureFault_ = false;
-  vibrationFault_ = false;
-  voltageFault_ = false;
+  m_temperatureFault = false;
+  m_vibrationFault = false;
+  m_voltageFault = false;
 
-  timestamp_ = 0;
+  m_timestamp = 0;
 }

@@ -19,21 +19,21 @@ public:
 
 private:
   // Nominal sensor values
-  double temperature_;
-  double vibration_;
-  double voltage_;
+  double m_temperature;
+  double m_vibration;
+  double m_voltage;
 
   // Fault flags
-  bool temperatureFault_;
-  bool vibrationFault_;
-  bool voltageFault_;
+  bool m_temperatureFault;
+  bool m_vibrationFault;
+  bool m_voltageFault;
 
   // Random number generation
   std::default_random_engine generator_;
-  std::normal_distribution<double> temperatureNoise_;
-  std::normal_distribution<double> vibrationNoise_;
-  std::normal_distribution<double> voltageNoise_;
+  std::normal_distribution<double> m_temperatureNoise;
+  std::normal_distribution<double> m_vibrationNoise;
+  std::normal_distribution<double> m_voltageNoise;
 
   // Internal timestamp (milliseconds)
-  uint64_t timestamp_;
+  uint64_t m_timestamp;
 };

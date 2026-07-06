@@ -12,8 +12,8 @@ public:
   void run(int iterations);
 
 private:
-  SensorSimulator simulator_;
-  HealthMonitor monitor_;
-  Logger logger_;
-  AlertManager alertManager_;
+  SensorSimulator m_simulator;
+  HealthMonitor m_monitor;
+  Logger m_logger;
+  AlertManager m_alertManager;
 };

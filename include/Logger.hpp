@@ -11,5 +11,5 @@ public:
   void log(const std::string &message);
 
 private:
-  std::ofstream file_;
+  std::ofstream m_file;
 };

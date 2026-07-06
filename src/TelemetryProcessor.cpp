@@ -3,7 +3,7 @@
 #include <iostream>
 #include <thread>
 
-TelemetryProcessor::TelemetryProcessor() : logger_("logs/telemetry.log") {}
+TelemetryProcessor::TelemetryProcessor() : m_logger("logs/telemetry.log") {}
 
 void TelemetryProcessor::run(int iterations) {
   std::cout << "=== Telemetry Processor Running ===\n";
@@ -11,19 +11,19 @@ void TelemetryProcessor::run(int iterations) {
   for (int i = 0; i < iterations; i++) {
     // Fault injection (kept inside controller now)
     if (i == 30)
-      simulator_.injectTemperatureFault();
+      m_simulator.injectTemperatureFault();
 
     if (i == 60)
-      simulator_.injectVibrationFault();
+      m_simulator.injectVibrationFault();
 
     if (i == 80)
-      simulator_.injectVoltageFault();
+      m_simulator.injectVoltageFault();
 
     // 1. Generate sensor data
-    SensorData data = simulator_.generateData();
+    SensorData data = m_simulator.generateData();
 
     // 2. Evaluate health
-    SystemState state = monitor_.evaluate(data);
+    SystemState state = m_monitor.evaluate(data);
 
     // 3. Format message
     std::string message = "T=" + std::to_string(data.temperature) +
@@ -38,10 +38,10 @@ void TelemetryProcessor::run(int iterations) {
     std::cout << message << std::endl;
 
     // 5. Log it
-    logger_.log(message);
+    m_logger.log(message);
 
     // 6. Alerts
-    alertManager_.processAlert(data, state);
+    m_alertManager.processAlert(data, state);
 
     // 7. Real-time delay
     std::this_thread::sleep_for(std::chrono::milliseconds(100));

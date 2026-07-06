@@ -1,6 +1,6 @@
-#include <gtest/gtest.h>
-
 #include "SensorSimulator.hpp"
+
+#include <gtest/gtest.h>
 
 TEST(SensorSimulatorTest, GeneratesReasonableValues) {
   SensorSimulator simulator;

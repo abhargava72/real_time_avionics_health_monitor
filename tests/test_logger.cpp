@@ -1,8 +1,7 @@
-#include <gtest/gtest.h>
+#include "Logger.hpp"
 
 #include <filesystem>
-
-#include "Logger.hpp"
+#include <gtest/gtest.h>
 
 TEST(LoggerTest, CreatesLogFile) {
   const std::string filename = "logs/test.log";

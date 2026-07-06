@@ -1,5 +1,6 @@
 #pragma once
 #include "SensorData.hpp"
+
 #include <random>
 
 class SensorSimulator {

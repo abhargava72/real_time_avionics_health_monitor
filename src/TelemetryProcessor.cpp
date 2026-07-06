@@ -1,4 +1,5 @@
 #include "TelemetryProcessor.hpp"
+
 #include <chrono>
 #include <iostream>
 #include <thread>
@@ -28,8 +29,7 @@ void TelemetryProcessor::run(int iterations) {
     // 3. Format message
     std::string message = "T=" + std::to_string(data.temperature) +
                           " | V=" + std::to_string(data.vibration) +
-                          " | Volt=" + std::to_string(data.voltage) +
-                          " | STATE=" +
+                          " | Volt=" + std::to_string(data.voltage) + " | STATE=" +
                           (state == SystemState::NORMAL     ? "NORMAL"
                            : state == SystemState::DEGRADED ? "DEGRADED"
                                                             : "CRITICAL");

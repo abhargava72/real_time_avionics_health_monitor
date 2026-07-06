@@ -1,6 +1,6 @@
 #include "HealthMonitor.hpp"
 
-SystemState HealthMonitor::evaluate(const SensorData &data) {
+SystemState HealthMonitor::evaluate(const SensorData& data) {
   bool overheat = isOverheat(data);
   bool vib = isHighVibration(data);
   bool volt = isLowVoltage(data);
@@ -18,14 +18,14 @@ SystemState HealthMonitor::evaluate(const SensorData &data) {
   return SystemState::NORMAL;
 }
 
-bool HealthMonitor::isOverheat(const SensorData &data) {
+bool HealthMonitor::isOverheat(const SensorData& data) {
   return data.temperature > 95.0;
 }
 
-bool HealthMonitor::isHighVibration(const SensorData &data) {
+bool HealthMonitor::isHighVibration(const SensorData& data) {
   return data.vibration > 4.0;
 }
 
-bool HealthMonitor::isLowVoltage(const SensorData &data) {
+bool HealthMonitor::isLowVoltage(const SensorData& data) {
   return data.voltage < 24.0;
 }

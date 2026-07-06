@@ -1,7 +1,8 @@
 #include "AlertManager.hpp"
+
 #include <iostream>
 
-void AlertManager::processAlert(const SensorData &data, SystemState state) {
+void AlertManager::processAlert(const SensorData& data, SystemState state) {
   if (state == SystemState::NORMAL) {
     return;
   }
@@ -17,10 +18,10 @@ void AlertManager::processAlert(const SensorData &data, SystemState state) {
   }
 }
 
-void AlertManager::sendWarning(const std::string &msg) {
+void AlertManager::sendWarning(const std::string& msg) {
   std::cout << "[WARNING] " << msg << std::endl;
 }
 
-void AlertManager::sendCritical(const std::string &msg) {
+void AlertManager::sendCritical(const std::string& msg) {
   std::cout << "[CRITICAL ALERT] " << msg << std::endl;
 }

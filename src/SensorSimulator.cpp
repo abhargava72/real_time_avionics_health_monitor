@@ -1,10 +1,9 @@
 #include "SensorSimulator.hpp"
 
 SensorSimulator::SensorSimulator()
-    : m_temperature(70.0), m_vibration(1.0), m_voltage(28.0),
-      m_temperatureFault(false), m_vibrationFault(false), m_voltageFault(false),
-      m_temperatureNoise(0.0, 0.5), m_vibrationNoise(0.0, 0.1),
-      m_voltageNoise(0.0, 0.2), m_timestamp(0) {}
+    : m_temperature(70.0), m_vibration(1.0), m_voltage(28.0), m_temperatureFault(false),
+      m_vibrationFault(false), m_voltageFault(false), m_temperatureNoise(0.0, 0.5),
+      m_vibrationNoise(0.0, 0.1), m_voltageNoise(0.0, 0.2), m_timestamp(0) {}
 
 SensorData SensorSimulator::generateData() {
   // Advance simulated time
@@ -33,11 +32,17 @@ SensorData SensorSimulator::generateData() {
   return data;
 }
 
-void SensorSimulator::injectTemperatureFault() { m_temperatureFault = true; }
+void SensorSimulator::injectTemperatureFault() {
+  m_temperatureFault = true;
+}
 
-void SensorSimulator::injectVoltageFault() { m_voltageFault = true; }
+void SensorSimulator::injectVoltageFault() {
+  m_voltageFault = true;
+}
 
-void SensorSimulator::injectVibrationFault() { m_vibrationFault = true; }
+void SensorSimulator::injectVibrationFault() {
+  m_vibrationFault = true;
+}
 
 void SensorSimulator::reset() {
   m_temperature = 70.0;

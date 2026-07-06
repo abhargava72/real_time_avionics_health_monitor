@@ -1,7 +1,7 @@
-#include <gtest/gtest.h>
-
 #include "HealthMonitor.hpp"
 #include "SensorData.hpp"
+
+#include <gtest/gtest.h>
 
 TEST(HealthMonitorTest, NormalState) {
   HealthMonitor monitor;

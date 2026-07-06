@@ -1,9 +1,17 @@
 #include "Logger.hpp"
 #include <chrono>
 #include <ctime>
+#include <filesystem>
 #include <iostream>
 
 Logger::Logger(const std::string &filename) {
+  std::filesystem::path logPath(filename);
+
+  // Create parent directories if they don't exist
+  if (!logPath.parent_path().empty()) {
+    std::filesystem::create_directories(logPath.parent_path());
+  }
+
   m_file.open(filename, std::ios::out | std::ios::app);
 
   if (!m_file.is_open()) {

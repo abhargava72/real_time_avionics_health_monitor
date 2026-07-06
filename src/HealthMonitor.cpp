@@ -11,7 +11,7 @@ SystemState HealthMonitor::evaluate(const SensorData &data) {
   }
 
   // DEGRADED: early warning signs
-  if (overheat || vib || volt) {
+  if (vib || volt) {
     return SystemState::DEGRADED;
   }
 

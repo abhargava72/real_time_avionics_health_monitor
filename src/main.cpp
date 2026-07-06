@@ -2,36 +2,44 @@
 #include <iostream>
 #include <thread>
 
+#include "HealthMonitor.hpp"
+#include "Logger.hpp"
 #include "SensorSimulator.hpp"
 
-int main()
-{
-    SensorSimulator simulator;
-    std::cout << "=== Real-Time Avionics Health Monitor ===\n\n";
-    for (int i = 0; i < 100; ++i)
-    {
-        // Inject faults at different times
-        if (i == 30)
-        {
-            std::cout << "\n*** Temperature Fault Injected ***\n\n";
-            simulator.injectTemperatureFault();
-        }
+int main() {
+  SensorSimulator simulator;
+  HealthMonitor monitor;
+  Logger logger("logs/telemetry.log");
 
-        if (i == 60)
-        {
-            std::cout << "\n*** Vibration Fault Injected ***\n\n";
-            simulator.injectVibrationFault();
-        }
+  std::cout << "=== Avionics Health Monitor Running ===\n";
 
-        if (i == 80)
-        {
-            std::cout << "\n*** Voltage Fault Injected ***\n\n";
-            simulator.injectVoltageFault();
-        }
-        SensorData data = simulator.generateData();
-        std::cout << "Time: " << data.timestamp << " ms" << " | Temp: " << data.temperature << " C" << " | Vib: " << data.vibration << " g" << " | Volt: " << data.voltage << " V" << '\n';
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    }
-    std::cout << "\nSimulation Complete.\n";
-    return 0;
+  for (int i = 0; i < 100; i++) {
+    if (i == 30)
+      simulator.injectTemperatureFault();
+
+    if (i == 60)
+      simulator.injectVibrationFault();
+
+    if (i == 80)
+      simulator.injectVoltageFault();
+
+    SensorData data = simulator.generateData();
+    SystemState state = monitor.evaluate(data);
+
+    std::string logMessage = "T=" + std::to_string(data.temperature) +
+                             " V=" + std::to_string(data.vibration) +
+                             " Vlt=" + std::to_string(data.voltage) +
+                             " STATE=" +
+                             (state == SystemState::NORMAL     ? "NORMAL"
+                              : state == SystemState::DEGRADED ? "DEGRADED"
+                                                               : "CRITICAL");
+
+    std::cout << logMessage << std::endl;
+
+    logger.log(logMessage);
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  }
+
+  return 0;
 }

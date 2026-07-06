@@ -17,6 +17,7 @@ set(SOURCES
     src/HealthMonitor.cpp
     src/Logger.cpp
     src/AlertManager.cpp
+    src/TelemetryProcessor.cpp
 )
 
 # Create executable

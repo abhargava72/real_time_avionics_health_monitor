@@ -16,6 +16,7 @@ set(SOURCES
     src/SensorSimulator.cpp
     src/HealthMonitor.cpp
     src/Logger.cpp
+    src/AlertManager.cpp
 )
 
 # Create executable
